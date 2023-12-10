@@ -7,7 +7,7 @@ import { connect } from 'cloudflare:sockets';
 let userID = 'f2298581-16d6-4c42-907d-3db31b64c38a';
 
 const proxyIPs = ['cdn-all.xn--b6gac.eu.org', 'cdn.xn--b6gac.eu.org', 'cdn-b100.xn--b6gac.eu.org', 'edgetunnel.anycast.eu.org', 'cdn.anycast.eu.org'];
-let proxyIP = '154.92.10.110';
+let proxyIP = '154.92.10.110,';
 
 
 if (!isValidUUID(userID)) {
@@ -600,8 +600,9 @@ async function handleUDPOutBound(webSocket, vlessResponseHeader, log) {
  * @param {string | null} hostName
  * @returns {string}
  */
+ let BUG = '104.18.225.52'
 function getVLESSConfig(userID, hostName) {
-	const vlessMain = `vless://${userID}@${hostName}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`
+	const vlessMain = `vless://${userID}@${BUG}:443?encryption=none&security=tls&sni=${hostName}&fp=randomized&type=ws&host=${hostName}&path=%2F%3Fed%3D2048#${hostName}`
 	return `
 ################################################################
 v2ray
@@ -613,7 +614,7 @@ clash-meta
 ---------------------------------------------------------------
 - type: vless
   name: ${hostName}
-  server: ${hostName}
+  server: ${BUG}
   port: 443
   uuid: ${userID}
   network: ws
@@ -628,5 +629,5 @@ clash-meta
 ---------------------------------------------------------------
 ################################################################
 `;
-      }
-      
+		}
+	
